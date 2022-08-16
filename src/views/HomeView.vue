@@ -4,8 +4,8 @@
     <v-col cols="2">
       <MeNu></MeNu>
     </v-col>
-      <v-col cols="10">
-      <v-card height="650">sdfsdf</v-card>
+    <v-col cols="10">
+      <ListMain></ListMain>
     </v-col>
   </v-row>  
 </div>
@@ -13,8 +13,9 @@
 
 <script>
 import MeNu from '@/components/MeNu.vue';
+import ListMain from '@/components/ListMain.vue';
   export default {
     name: 'HoMe',
-    components : { MeNu }
+    components : { MeNu, ListMain}
   }
 </script>
