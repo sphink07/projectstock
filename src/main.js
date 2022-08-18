@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import firebase from 'firebase'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 
 const firebaseConfig = {
@@ -17,10 +19,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 Vue.config.productionTip = false
-
+Vue.use(VueAxios, axios)
 new Vue({
   router,
   store,
-  vuetify,
+  vuetify, 
   render: K => K(App)
 }).$mount('#app')

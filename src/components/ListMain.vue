@@ -1,124 +1,44 @@
 <template>
   <div>
-  <v-simple-table height="650px">
-    <template v-slot:default>
-      <thead>
-        <tr>
-            <th class="text-left">
-            ชื่อ
-            </th>
-            <th class="text-left">
-            จำนวน
-            </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="item in desserts"
-          :key="item.name"
-        >
-          <td>{{ item.name }}</td>
-          <td>{{ item.calories }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+    <v-simple-table height="650px">
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">id</th>
+            <th class="text-left">category</th>
+            <th class="text-left">part_number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in StocK1" :key="item.userId">
+            <td>{{ item.id }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.partNo }}</td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
   </div>
 </template>
 
-<script>
+<script> 
 export default {
-        data () {
-      return {
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-          },
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-          },
-
-        ],
-      }
-    },  
-
-}
+  data() {
+    return {
+      StocK1: [],
+    };
+  },
+  mounted() {
+       this.axios
+      .get("http://localhost:3000/stock")
+      .then((response) => {
+        this.StocK1 = response.data;
+        console.log(response.data);
+      });
+      
+  },
+};
 </script>
 
 <style>
-
 </style>
