@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LogIn from '../views/LogIn.vue'
 import SeLect from '../views/Pust_Pro.vue'
+import ManageMent from '../views/ManageMent.vue'
+
 
 Vue.use(VueRouter)
 
@@ -22,6 +24,23 @@ const routes = [
     name: 'SeLect',
     component: SeLect
   },
+  {
+    path: '/management',
+    name: 'ManageMent',
+    component: ManageMent
+  },
+  {
+    path: '/management/fix',
+    name: 'ManageMentFix',
+    component: () => import("@/views/CRUDFix.vue")
+  },
+  {
+    path: '/management/add',
+    name: 'ManageMentAdd',
+    component: () => import("@/views/CURDAdd.vue")
+  },
+
+
 
 ]
 
