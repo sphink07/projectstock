@@ -36,7 +36,9 @@
                 height="50px"
                 class="btncolor"
                 href="/"
+                
                 >Login to system</v-btn>
+                <v-span>v 0.1</v-span>
               </v-container>
             <!-- </v-card> -->
           </v-container>

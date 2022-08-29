@@ -39,7 +39,16 @@ const routes = [
     name: 'ManageMentAdd',
     component: () => import("@/views/CURDAdd.vue")
   },
-
+  {
+    path: '/select/list',
+    name: 'SelectList',
+    component: () => import("@/views/SelectList.vue")
+  },
+  {
+    path: '/record',
+    name: 'ReCord',
+    component: () => import("@/views/RecordList.vue")
+  },
 
 
 ]

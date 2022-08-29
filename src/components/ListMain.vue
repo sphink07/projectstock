@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-simple-table height="740px">
+    <v-simple-table height="910px">
       <template v-slot:default>
         <thead style="background-color:#d4d4d4;">
           <tr>
@@ -12,9 +12,9 @@
         </thead>
         <tbody>
           <tr v-for="item in StocK1" :key="item.userId">
-            <td>{{ item.category }}</td>
-            <td>{{ item.partNo }}</td>
-            <td>{{ item.quantity }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.code }}</td>
+            <td>{{ item.qty }}</td>
             <td class="text-center">
               <v-btn small style="border-radius: 5px">
                 <v-icon>mdi-card-text-outline</v-icon>

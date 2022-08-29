@@ -5,7 +5,7 @@
         <MeNu></MeNu>
       </v-col>
       <v-col cols="10" md="10" sm="11">
-        <v-app-bar style="background-color: #d4d4d4">
+        <v-app-bar style="background-color: #d4d4d4" elevate-on-scroll>
           <v-container>
             <v-row>
               <v-span style="margin-top: 5px; font-size: 18px"
@@ -27,13 +27,13 @@
         </v-app-bar>
         <v-row>
           <v-col>
-            <v-simple-table height="660px">
+            <v-simple-table height="835px">
               <template v-slot:default>
                 <tbody>
                   <tr v-for="item in StocK1" :key="item.userId">
-                    <td>{{ item.category }}</td>
-                    <td>{{ item.partNo }}</td>
-                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.code }}</td>
+                    <td>{{ item.qty }}</td>
                     <td class="text-right">
                       <v-btn
                         href="/management/fix"
@@ -74,6 +74,7 @@ export default {
   data() {
     return {
       StocK1: [],
+      
     };
   },
   components: { MeNu },
@@ -83,6 +84,7 @@ export default {
       console.log(response.data);
     });
   },
+
 };
 </script>
 
