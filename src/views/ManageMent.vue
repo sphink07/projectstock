@@ -30,13 +30,14 @@
             <v-simple-table height="835px">
               <template v-slot:default>
                 <tbody>
-                  <tr v-for="item in StocK1" :key="item.userId">
+                  <tr v-for="item in StocK1" :key="item.id">
                     <td>{{ item.name }}</td>
                     <td>{{ item.code }}</td>
                     <td>{{ item.qty }}</td>
                     <td class="text-right">
                       <v-btn
-                        href="/management/fix"
+                        @click="Testclick"
+                        
                         small
                         class="ma-2"
                         width="50"
@@ -47,6 +48,7 @@
                       >
 
                       <v-btn
+                        @click="Alertclick(item.id)"
                         small
                         class="ma-2"
                         width="50"
@@ -69,12 +71,14 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import MeNu from "@/components/MeNu.vue";
 export default {
   data() {
     return {
       StocK1: [],
-      
+      ID: "",
+      number: 0,
     };
   },
   components: { MeNu },
@@ -84,7 +88,38 @@ export default {
       console.log(response.data);
     });
   },
-
+  methods: {
+    DeleteItem(codeid) {
+      this.axios
+        .delete(`http://localhost:3000/delete`, { data: { id: codeid } })
+        .then((response) => {
+          console.log(response);
+          window.location.reload();
+        })
+        .catch(function (error) {
+          document.write("ส่งข้อมูลไม่สำเร็จ" + "<br>" + "สาเหตุ :" + error);
+        });
+    },
+    Alertclick(list) {
+      this.number = list;
+      let codeid = this.number;
+      Swal.fire({
+        title: "WARNING !!!",
+        text: "ยืนยันที่จะลบหรือไม่?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "ตกลง",
+        cancelButtonText:"ยกเลิก"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("ลบสำเร็จ!", "ข้อมูลใน stock ถูกลบแล้ว", "success");
+          this.DeleteItem(codeid)
+        }
+      });
+    },
+  },
 };
 </script>
 

@@ -4,7 +4,7 @@
       <template v-slot:default>
         <thead style="background-color:#d4d4d4;">
           <tr>
-            <th class="text-left">category</th>
+            <th class="text-left">name</th>
             <th class="text-left">part_number</th>
             <th class="text-left">quantity</th>
             <th class="text-center">detail</th>
