@@ -10,7 +10,17 @@
             offset-sm="1"
             style="text-align: center"
           >
-            <v-card height="600" elevation="5"> </v-card>
+            <v-card height="600" elevation="5"> 
+              <v-data-table 
+              height="77vh"
+              flat
+              :headers="headers"
+              :items="datafilter"
+              :search="search"
+              :footer-props="footerProps"
+              hide-default-footer
+            ></v-data-table>
+            </v-card>
             <v-col>
               <v-container>
                 <v-btn
@@ -65,12 +75,8 @@ export default {
   );
 }
 .cbm {
-  background: rgb(255, 128, 250);
-  background: radial-gradient(
-    circle,
-    rgba(255, 128, 250, 1) 19%,
-    rgba(91, 95, 251, 1) 63%,
-    rgba(32, 32, 32, 1) 100%
-  );
+  background: rgb(54,54,54);
+  background: linear-gradient(90deg, rgba(54,54,54,1) 0%, rgba(173,173,173,1) 100%);
+
 }
 </style>

@@ -4,7 +4,7 @@
       <v-row no-gutters>
         <v-col md="6" offset-md="3" sm="6" offset-sm="3">
           <v-col cols="12">
-            <v-span style="font-size: 30px">แก้ไขข้อมูล Stock</v-span>
+            <span style="font-size: 30px">แก้ไขข้อมูล Stock</span>
           </v-col>
           <br />
           <v-text-field

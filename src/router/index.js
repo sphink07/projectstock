@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue'
 import LogIn from '../views/LogIn.vue'
 import SeLect from '../views/Pust_Pro.vue'
 import ManageMent from '../views/ManageMent.vue'
+import ReCordy from '@/views/RecordList.vue'
+
 
 
 Vue.use(VueRouter)
@@ -46,8 +48,8 @@ const routes = [
   },
   {
     path: '/record',
-    name: 'ReCord',
-    component: () => import("@/views/RecordList.vue")
+    name: 'ReCordy',
+    component: ReCordy
   },
 
 

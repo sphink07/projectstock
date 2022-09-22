@@ -38,7 +38,7 @@
                 href="/"
                 
                 >Login to system</v-btn>
-                <v-span>v 0.1</v-span>
+                <span>v 0.1</span>
               </v-container>
             <!-- </v-card> -->
           </v-container>
