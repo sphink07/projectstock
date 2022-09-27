@@ -221,4 +221,7 @@ export default {
     background: rgb(54,54,54);
     background: linear-gradient(90deg, rgba(54,54,54,1) 0%, rgba(173,173,173,1) 100%);
   }
+  ::v-deep .v-data-table-header {
+    background-color: #DCDCDC;
+  }
 </style>

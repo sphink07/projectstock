@@ -34,6 +34,7 @@
                   ></v-text-field>
 
                   <v-btn
+                    elevation="2"
                     @click="ChackZero()"
                     class="mr-10 hidden-sm-and-down"
                     height="48"
@@ -44,12 +45,26 @@
                       color: #ffffff;
                     "
                   >
-                    <v-badge color="#43a839" inline style>
+                    <!-- <v-badge color="#43a839" inline style>
                       <template v-slot:badge>
                         <div>{{ Length }}</div>
                       </template>
                       รายการที่เลือก
-                    </v-badge>
+                    </v-badge> -->
+                    รายการที่เลือก
+                    <v-card
+                      elevation="5"
+                      height="30"
+                      width="33"
+                      class="ml-4"
+                      style="
+                        font-size: 20px;
+                        padding-top: 4px;
+                        border-radius: 6px;
+                      "
+                      color="#149937"
+                      ><div style="color: #ffffff">{{ Length }}</div></v-card
+                    >
                   </v-btn>
                 </v-row>
               </v-col>
@@ -102,6 +117,7 @@
           :search="search"
           :footer-props="footerProps"
           show-select
+          checkbox-color="#149937"
           v-model="dataselect"
         ></v-data-table>
       </v-card>
@@ -187,5 +203,8 @@ export default {
     rgba(54, 54, 54, 1) 0%,
     rgba(173, 173, 173, 1) 100%
   );
+}
+::v-deep .v-data-table-header {
+  background-color: #dcdcdc;
 }
 </style>
