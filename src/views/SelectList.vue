@@ -118,11 +118,35 @@ export default {
       });
       if (this.textinputfix.length == this.ListShow.length) {
         for (let i = 0; i < this.textinputfix.length; i++) {
-          this.Mixlist[i] = this.ListShow[i].qty - this.textinputfix[i];
+          if (this.ListShow[i].qty >= this.textinputfix[i]) {
+            this.Mixlist[i] = this.ListShow[i].qty - this.textinputfix[i];
+            this.ListShow[i].qty = this.Mixlist[i];
+          } else {
+            Swal.fire({
+              text: "สินค้ามีไม่พอตามที่ต้องการ ตรวจสอบรายการสินค้า",
+              icon: "warning",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
         }
-        console.log(this.Mixlist);
+        console.log(this.ListShow);
       } else {
-
+        Swal.fire({
+          text: "มีรายการที่ยังกรอกจำนวนไม่ครบ",
+          icon: "warning",
+          showConfirmButton: false,
+          timer: 1800,
+        });
+      }
+      if (this.ListShow.length <= 0) {
+        Swal.fire({
+          text: "ไม่มีข้อมูลทำการเลือกข้อมูลก่อน",
+          icon: "warning",
+          showConfirmButton: false,
+          timer: 1800,
+        });
+        this.$router.push("/select");
       }
     },
     backpage() {
