@@ -69,6 +69,22 @@ export default {
   methods: {
     Changg() {},
   },
+  mounted() {
+    let userchack = localStorage.getItem("UserAdmin")
+    if(userchack === "ADMIN1" || userchack === "ADMIN2"){
+      console.log("login seccess")
+    } else {
+      this.$router.push("/login")
+    }
+  },
+  updated() {
+    let userchack = localStorage.getItem("UserAdmin")
+    if(userchack === "ADMIN1" || userchack === "ADMIN2"){
+      console.log("login seccess")
+    } else {
+      this.$router.push("/login")
+    }
+  },
 };
 </script>
 

@@ -136,18 +136,25 @@ export default {
             text: "ต้องการที่จะเบิกตามรายการที่เลือก?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
+            confirmButtonColor: "#01ba03",
             cancelButtonColor: "#d33",
             confirmButtonText: "ตกลง",
             cancelButtonText: "ยกเลิก",
           }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire("บันทึกสำเร็จ", "", "success");
+              Swal.fire({
+                title: "บันทึกสำเร็จ",
+                icon: "success",
+                timer: 2000,
+                showConfirmButton: false,
+              });
               for (let i = 0; i < this.ListShow.length; i++) {
                 this.ListShow[i].qty = this.Mixlist[i];
               }
               console.log(this.ListShow);
               this.$router.push("/select");
+            } else {
+                 this.Mixlist = [];
             }
           });
         } else {
@@ -174,6 +181,7 @@ export default {
           showConfirmButton: false,
           timer: 1800,
         });
+        this.$router.push("/select");
       }
       console.log(this.ListShow);
     },

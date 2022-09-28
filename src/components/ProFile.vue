@@ -22,10 +22,10 @@
                 <v-avatar color="brown">
                   <span class="white--text text-h5">{{ user.initials }}</span>
                 </v-avatar>
-                <h3>{{ user.fullName }}</h3>
                 <p class="text-caption mt-1">
                   {{ user.email }}
                 </p>
+                <h3 style="margin-top: -12px">{{ user.fullName }}</h3>
               </div>
             </v-list-item-content>
           </v-card>
@@ -40,16 +40,16 @@
             <v-card
               height="140"
               class="pt-4"
-              style="border-radius: 5px ; background-color:#282828"
+              style="border-radius: 5px; background-color: #282828"
               elevation="10"
             >
               <v-avatar color="brown" style="margin-bottom: 10px" size="60">
-                <span class="white--text text-h4">{{ user.initials }}</span>
+                <span class="white--text text-h5">{{ user.initials }}</span>
               </v-avatar>
-              <h3>{{ user.fullName }}</h3>
-              <p class="text-caption mt-1">
+              <p class="text-caption">
                 {{ user.email }}
               </p>
+              <h3 style="margin-top: -12px">{{ user.fullName }}</h3>
             </v-card>
           </v-container>
         </div>
@@ -62,11 +62,22 @@
 export default {
   data: () => ({
     user: {
-      initials: "JD",
-      fullName: "John Doe",
-      email: "john.doe@doe.com",
+      initials: "",
+      fullName: "",
+      email: "ยินดีต้อนรับคุณ",
     },
   }),
+
+  mounted() {
+    this.user.fullName = localStorage.getItem("UserAdmin")
+    if (this.user.fullName == 'ADMIN1'){
+      this.user.initials = "A1"
+    } else if(this.user.fullName == 'ADMIN2'){
+      this.user.initials = "A2"
+    } else {
+      console.log("avatar ไม่มีข้อมูล")
+    }
+  },
 };
 </script>
 
