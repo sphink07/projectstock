@@ -120,17 +120,45 @@ export default {
         for (let i = 0; i < this.textinputfix.length; i++) {
           if (this.ListShow[i].qty >= this.textinputfix[i]) {
             this.Mixlist[i] = this.ListShow[i].qty - this.textinputfix[i];
-            this.ListShow[i].qty = this.Mixlist[i];
           } else {
             Swal.fire({
-              text: "สินค้ามีไม่พอตามที่ต้องการ ตรวจสอบรายการสินค้า",
+              text: "มีรายการสินค้าที่ไม่เพียงพอ ตรวจสอบจำนวนที่จะเบิก",
               icon: "warning",
               showConfirmButton: false,
               timer: 2000,
             });
+            break;
           }
         }
-        console.log(this.ListShow);
+        if (this.Mixlist.length == this.ListShow.length) {
+          Swal.fire({
+            title: "ยืนยันรายการ",
+            text: "ต้องการที่จะเบิกตามรายการที่เลือก?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "ตกลง",
+            cancelButtonText: "ยกเลิก",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire("บันทึกสำเร็จ", "", "success");
+              for (let i = 0; i < this.ListShow.length; i++) {
+                this.ListShow[i].qty = this.Mixlist[i];
+              }
+              console.log(this.ListShow);
+              this.$router.push("/select");
+            }
+          });
+        } else {
+          Swal.fire({
+            text: "มีรายการสินค้าที่ไม่เพียงพอ ตรวจสอบจำนวนที่จะเบิก",
+            icon: "warning",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
+        console.log(this.textinputfix);
       } else {
         Swal.fire({
           text: "มีรายการที่ยังกรอกจำนวนไม่ครบ",
@@ -146,8 +174,8 @@ export default {
           showConfirmButton: false,
           timer: 1800,
         });
-        this.$router.push("/select");
       }
+      console.log(this.ListShow);
     },
     backpage() {
       this.$router.push("/select");
