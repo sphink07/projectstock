@@ -4,19 +4,16 @@
       <v-row no-gutters>
         <v-col>
           <v-app-bar
-            absolute
             scroll-target="#scrolling-techniques-7"
-            height="100"
-            style="background-color: #cdcdcd"
+            style="height:14vh;"
             class="hidden-sm-and-down col00"
           >
             <v-row no-gutters>
               <v-col class="mt-6">
                 <v-row>
                   <span
-                    class="hidden-sm-and-down mt-2"
+                    class="hidden-sm-and-down mt-8"
                     style="
-                      margin-top: 10px;
                       font-size: 22px;
                       margin-right: 35px;
                       margin-left: 20px;
@@ -26,7 +23,7 @@
                     ✅ เลือกรายการที่ต้องการเบิก
                   </span>
                   <v-text-field
-                    class="ml-5 mr-5"
+                    class="ml-5 mr-5 mt-6"
                     v-model="search"
                     append-icon="mdi-magnify"
                     label="Search"
@@ -36,7 +33,7 @@
                   <v-btn
                     elevation="2"
                     @click="ChackZero()"
-                    class="mr-10 hidden-sm-and-down"
+                    class="mt-6 mr-10 hidden-sm-and-down"
                     height="48"
                     style="
                       border-radius: 10px;
@@ -72,7 +69,6 @@
           </v-app-bar>
           <!-- -------------------------------------------sm and down--------------------------------------------------- -->
           <v-app-bar
-            absolute
             scroll-target="#scrolling-techniques-7"
             height="130"
             class="hidden-md-and-up col00"
@@ -106,21 +102,21 @@
               </v-col>
             </v-row>
           </v-app-bar>
+          <v-card height="75vh">
+            <v-data-table
+              height="72vh"
+              flat
+              :headers="headers"
+              :items="datafilter"
+              :search="search"
+              :footer-props="footerProps"
+              show-select
+              checkbox-color="#149937"
+              v-model="dataselect"
+            ></v-data-table>
+          </v-card>
         </v-col>
       </v-row>
-      <v-card height="86vh">
-        <v-data-table
-          height="77vh"
-          flat
-          :headers="headers"
-          :items="datafilter"
-          :search="search"
-          :footer-props="footerProps"
-          show-select
-          checkbox-color="#149937"
-          v-model="dataselect"
-        ></v-data-table>
-      </v-card>
     </v-app>
   </div>
 </template>
@@ -179,8 +175,8 @@ export default {
       }
     },
   },
-  mounted() {
-    this.axios.get("http://localhost:3000/stock").then((response) => {
+  async mounted() {
+    await this.axios.post("http://192.168.8.129:3000/stock").then((response) => {
       this.datafilter = response.data;
     });
   },

@@ -42,7 +42,7 @@
               class="ma-2"
             ></v-text-field>
             <v-btn
-              @click="Click1"
+              @click="Submit()"
               block
               style="border-radius: 10px"
               depressed
@@ -51,7 +51,7 @@
               submit
             </v-btn>
             <v-btn
-              href="/management"
+              @click="Goback()"
               dark
               block
               style="border-radius: 10px; margin-top: 20px"
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import router from '@/router';
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -79,24 +79,34 @@ export default {
     };
   },
   methods: {
-    Click1() {
+    Submit() {
+      Swal.fire({
+            title: "บันทึกสำเร็จ!",
+            text: "ข้อมูลถูกบันทึกใน stock แล้ว ",
+            icon: "success",
+            showConfirmButton: false,
+            timer:1400
+          }).then(() => {
+            this.Click1()
+            this.$router.push("/management")
+            window.location.reload();
+          });
+    },
+    async Click1() {
       let name = this.name;
       let code = this.code;
       let qty = this.qty;
-      this.axios
+      await this.axios
         .post("http://localhost:3000/insert", { name, code, qty })
         .then((response) => {
           console.log(response);
-          this.alert = true;
         })
         .catch(function (error) {
-          document.write("ส่งข้อมูลไม่สำเร็จ" + "<br>"+ "สาเหตุ :" + error);
-          
+          document.write("ส่งข้อมูลไม่สำเร็จ" + "<br>" + "สาเหตุ :" + error);
         });
-        setTimeout(() => (this.alert = false), 2000);
-      if(this.alert === true){
-        setTimeout(() => (router.push({ path:'/management'})), 2000);
-      }
+    },
+    Goback() {
+      this.$router.push("/management");
     },
   },
 };

@@ -126,7 +126,7 @@
                     >mdi-clipboard-text-outline</v-icon
                   >
                 </v-list-item-icon>
-                <v-list-item-title>บันทึกย้อนหลัง</v-list-item-title>
+                <v-list-item-title>ที่เบิกเเล้ว</v-list-item-title>
               </v-btn>
             </v-list-item>
           </router-link>

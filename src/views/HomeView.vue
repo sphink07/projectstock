@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <ListMain></ListMain>
+    <v-row no-gutters>
+      <v-col>
+        <ListMain></ListMain>
+      </v-col>
+    </v-row>  
   </div>
 </template>
 

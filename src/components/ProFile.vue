@@ -43,13 +43,17 @@
               style="border-radius: 5px; background-color: #282828"
               elevation="10"
             >
-              <v-avatar color="brown" style="margin-bottom: 10px" size="60">
+              <v-avatar class="a1" v-if="this.user.initials == 'A1'" style="margin-bottom: 10px" size="60">
+                <span class="white--text text-h5" style="">{{ user.initials }}</span>
+              </v-avatar>
+              <v-avatar class="a2" v-if="this.user.initials == 'A2'" style="margin-bottom: 10px" size="60">
                 <span class="white--text text-h5">{{ user.initials }}</span>
               </v-avatar>
               <p class="text-caption">
                 {{ user.email }}
               </p>
-              <h3 style="margin-top: -12px">{{ user.fullName }}</h3>
+              <h3 style="margin-top:-15px ;" class="a1" v-if="this.user.initials == 'A1'">{{ user.fullName }}</h3>
+              <h3 style="margin-top:-15px ;" class="a2" v-if="this.user.initials == 'A2'">{{ user.fullName }}</h3>
             </v-card>
           </v-container>
         </div>
@@ -81,5 +85,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.a1{
+  background: rgb(255,170,0);
+  background: radial-gradient(circle, rgba(255,170,0,1) 6%, rgba(255,89,61,0.9587185215883228) 32%, rgba(41,41,41,1) 77%);
+}
+.a2{
+  background: rgb(0,146,255);
+background: radial-gradient(circle, rgba(0,146,255,1) 4%, rgba(75,67,241,0.9587185215883228) 32%, rgba(41,41,41,1) 77%);
+}
 </style>

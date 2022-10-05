@@ -72,7 +72,7 @@ export default {
   mounted() {
     let userchack = localStorage.getItem("UserAdmin")
     if(userchack === "ADMIN1" || userchack === "ADMIN2"){
-      console.log("login seccess")
+      console.log("")
     } else {
       this.$router.push("/login")
     }
@@ -80,7 +80,7 @@ export default {
   updated() {
     let userchack = localStorage.getItem("UserAdmin")
     if(userchack === "ADMIN1" || userchack === "ADMIN2"){
-      console.log("login seccess")
+      console.log("")
     } else {
       this.$router.push("/login")
     }

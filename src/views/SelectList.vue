@@ -99,7 +99,7 @@ export default {
           value: "name",
         },
         { text: "Codenumber", value: "code" },
-        { text: "Codenumber", value: "code" },
+        { text: "จำนวน", value: "qty" },
         { text: "", value: "action" },
       ],
       rules: [(value) => !!value || "กรอกจำนวนให้ครบถ้วน."],
@@ -112,7 +112,7 @@ export default {
     // console.log(this.ListShow);
   },
   methods: {
-    TestSlot() {
+ TestSlot() {
       this.textinputfix = this.textinput.filter(function (e) {
         return e;
       });
@@ -147,14 +147,25 @@ export default {
                 icon: "success",
                 timer: 2000,
                 showConfirmButton: false,
-              });
-              for (let i = 0; i < this.ListShow.length; i++) {
-                this.ListShow[i].qty = this.Mixlist[i];
+              })
+              for (let i = 0; i < this.textinputfix.length; i++){
+                let id = this.ListShow[i].id
+                let qty = this.Mixlist[i]
+               this.axios
+                .post("http://192.168.8.129:3000/updateqty", { id , qty })
+                .then((response) => {
+                  console.log(response);
+                  this.$router.push("/select");
+                })
+                .catch(function (error) {
+                  document.write(
+                    "ส่งข้อมูลไม่สำเร็จ" + "<br>" + "สาเหตุ :" + error
+                  )
+                })
               }
-              console.log(this.ListShow);
-              this.$router.push("/select");
             } else {
-                 this.Mixlist = [];
+              this.Mixlist = [];
+              console.log(this.Mixlist);
             }
           });
         } else {
@@ -163,9 +174,8 @@ export default {
             icon: "warning",
             showConfirmButton: false,
             timer: 2000,
-          });
+          })
         }
-        console.log(this.textinputfix);
       } else {
         Swal.fire({
           text: "มีรายการที่ยังกรอกจำนวนไม่ครบ",

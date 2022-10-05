@@ -1,51 +1,55 @@
 <template>
   <div>
-    <v-app-bar
-      scroll-target="#scrolling-techniques-7"
-      height="100"
-      style="background-color: #cdcdcd"
-      class="col00"
-    >
-      <span
-        class="hidden-sm-and-down mt-2"
-        style="
-          margin-top: 10px;
-          font-size: 22px;
-          margin-right: 35px;
-          margin-left: 20px;
-          color: #ffffff;
-        "
-      ><v-icon  color="#FFFF66">mdi-clipboard-text</v-icon> รายการสินค้า 
-      </span>
-      <v-spacer class="hidden-sm-and-down" ></v-spacer>
-      <v-text-field
-      style=" margin-left:500px;"
-      class=" mr-5 mt-8 hidden-sm-and-down"
-      v-model="search"
-      append-icon="mdi-magnify"
-      label="Search"
-      solo
-    ></v-text-field>
-    <!-- --------------------------------------sm and down----------------------------------------- -->
-    <v-text-field
-    class="mt-8 hidden-md-and-up"
-    v-model="search"
-    append-icon="mdi-magnify"
-    label="Search"
-    solo
-  ></v-text-field>
-  <!-- --------------------------------------sm and down----------------------------------------- -->
-    </v-app-bar>
-    <v-card height="86vh">
-      <v-data-table
-        height="77.5vh"
-        flat
-        :headers="headers"
-        :items="StocK1"
-        :search="search"
-        :footer-props="footerProps"
-      ></v-data-table>
-    </v-card>
+    <v-app>
+      <v-card style="height:14vh; border-radius:0px;" class="col00">
+        <v-row align="center" justify="center">
+          <v-col class="hidden-sm-and-down">
+            <span
+              class="hidden-sm-and-down"
+              style="
+                font-size: 22px;
+                margin-left: 20px;
+                color: #ffffff;
+              "
+              ><v-icon color="#FFFF66">mdi-clipboard-text</v-icon> รายการสินค้า
+            </span></v-col
+          >
+          <v-spacer class="hidden-sm-and-down"></v-spacer>
+          <v-col>
+            <v-text-field
+              style=" ;"
+              class="mr-5 hidden-sm-and-down mt-6"
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              solo
+            ></v-text-field>
+            <!-- --------------------------------------sm and down----------------------------------------- -->
+            <v-container class="hidden-md-and-up">
+              <v-text-field
+                style=""
+                class="hidden-md-and-up ma-2 pa-2"
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="Search"
+                solo
+              ></v-text-field>
+            </v-container>
+          </v-col>
+        </v-row>
+        <!-- --------------------------------------sm and down----------------------------------------- -->
+      </v-card>
+      <v-card style="height: 85vh">
+        <v-data-table
+          height="74vh"
+          flat
+          :headers="headers"
+          :items="StocK1"
+          :search="search"
+          :footer-props="footerProps"
+        ></v-data-table>
+      </v-card>
+    </v-app>
   </div>
 </template>
 
@@ -65,11 +69,11 @@ export default {
         { text: "Quantity", value: "qty" },
       ],
       footerProps: { "items-per-page-options": [11, 20, 25] },
-      search:'',
+      search: "",
     };
   },
-  mounted() {
-    this.axios.get("http://localhost:3000/stock").then((response) => {
+  async mounted() {
+    await this.axios.get("http://localhost:3000/stock").then((response) => {
       this.StocK1 = response.data;
       console.log(response.data);
     });
@@ -95,6 +99,6 @@ export default {
   );
 }
 ::v-deep .v-data-table-header {
-  background-color: #DCDCDC;
+  background-color: #dcdcdc;
 }
 </style>
