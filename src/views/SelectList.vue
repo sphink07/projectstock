@@ -1,4 +1,4 @@
-<template>
+    <template>
   <div>
     <v-app class="cbm">
       <v-row no-gutters
@@ -93,13 +93,14 @@ export default {
       ListShow: [],
       headers: [
         {
-          text: "Name",
+          text: "Category",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "Category",
         },
-        { text: "Codenumber", value: "code" },
-        { text: "จำนวน", value: "qty" },
+        { text: "PartNo", value: "PartNo" },
+        { text: "Value", value: "Value" },
+        { text: "quantity", value: "quantity" },
         { text: "", value: "action" },
       ],
       rules: [(value) => !!value || "กรอกจำนวนให้ครบถ้วน."],
@@ -112,7 +113,7 @@ export default {
     // console.log(this.ListShow);
   },
   methods: {
- TestSlot() {
+    TestSlot() {
       this.textinputfix = this.textinput.filter(function (e) {
         return e;
       });
@@ -147,21 +148,27 @@ export default {
                 icon: "success",
                 timer: 2000,
                 showConfirmButton: false,
-              })
-              for (let i = 0; i < this.textinputfix.length; i++){
-                let id = this.ListShow[i].id
-                let qty = this.Mixlist[i]
-               this.axios
-                .post("http://192.168.8.129:3000/updateqty", { id , qty })
-                .then((response) => {
-                  console.log(response);
-                  this.$router.push("/select");
-                })
-                .catch(function (error) {
-                  document.write(
-                    "ส่งข้อมูลไม่สำเร็จ" + "<br>" + "สาเหตุ :" + error
-                  )
-                })
+              });
+              for (let i = 0; i < this.textinputfix.length; i++) {
+                let id = this.ListShow[i].id;
+                let qty = this.Mixlist[i];
+                this.axios
+                  .post("http://192.168.8.129:3000/updateqty", { id, qty })
+                  .then((response) => {
+                    console.log(response);
+                    Swal.fire({
+                      title: "บันทึกสำเร็จ",
+                      icon: "success",
+                      timer: 2000,
+                      showConfirmButton: false,
+                    });
+                    this.$router.push("/select");
+                  })
+                  .catch(function (error) {
+                    document.write(
+                      "ส่งข้อมูลไม่สำเร็จ" + "<br>" + "สาเหตุ :" + error
+                    );
+                  });
               }
             } else {
               this.Mixlist = [];
@@ -174,7 +181,7 @@ export default {
             icon: "warning",
             showConfirmButton: false,
             timer: 2000,
-          })
+          });
         }
       } else {
         Swal.fire({

@@ -132,7 +132,7 @@
           </router-link>
         </div>
 
-        <div @click="ClickToggle()">
+        <div @click="ClickToggle()" v-if="this.user == 'Superadmin' ">
           <router-link
             to="/management"
             style="text-decoration: none; color: inherit"
@@ -222,6 +222,7 @@ export default {
       Btn3: true,
       Btn4: true,
       Btn5: true,
+      user:"",
     };
   },
   methods: {
@@ -300,6 +301,7 @@ export default {
       this.Btn5 = false;
       console.log(this.Btn5);
     }
+     this.user = localStorage.getItem("UserAdmin")
     console.log(this.$route.name);
   },
 };

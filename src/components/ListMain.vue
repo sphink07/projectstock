@@ -1,16 +1,12 @@
 <template>
   <div>
     <v-app>
-      <v-card style="height:14vh; border-radius:0px;" class="col00">
+      <v-card style="height: 14vh; border-radius: 0px" class="col00">
         <v-row align="center" justify="center">
           <v-col class="hidden-sm-and-down">
             <span
               class="hidden-sm-and-down"
-              style="
-                font-size: 22px;
-                margin-left: 20px;
-                color: #ffffff;
-              "
+              style="font-size: 22px; margin-left: 20px; color: #ffffff"
               ><v-icon color="#FFFF66">mdi-clipboard-text</v-icon> รายการสินค้า
             </span></v-col
           >
@@ -25,21 +21,44 @@
               solo
             ></v-text-field>
             <!-- --------------------------------------sm and down----------------------------------------- -->
-            <v-container class="hidden-md-and-up">
-              <v-text-field
-                style=""
-                class="hidden-md-and-up ma-2 pa-2"
-                v-model="search"
-                append-icon="mdi-magnify"
-                label="Search"
-                solo
-              ></v-text-field>
-            </v-container>
+
+            <v-text-field
+              style=""
+              class="hidden-md-and-up ma-2 pa-2"
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              solo
+            ></v-text-field>
           </v-col>
         </v-row>
         <!-- --------------------------------------sm and down----------------------------------------- -->
       </v-card>
-      <v-card style="height: 85vh">
+      <div
+        v-if="this.skeleton == false"
+        style="position: absolute; top: 45%; left: 40%; right: 50%"
+        class="hidden-sm-and-down"
+      >
+        <v-progress-circular
+          :size="150"
+          :width="15"
+          color="#959595"
+          indeterminate
+        ></v-progress-circular>
+      </div>
+      <div
+        v-if="this.skeleton == false"
+        style="position: absolute; top: 40%; left: 28%;"
+        class="hidden-md-and-up"
+      >
+        <v-progress-circular
+          :size="150"
+          :width="15"
+          color="#959595"
+          indeterminate
+        ></v-progress-circular>
+      </div>
+      <v-card v-if="this.skeleton == true" style="height: 85vh">
         <v-data-table
           height="74vh"
           flat
@@ -60,23 +79,27 @@ export default {
       StocK1: [],
       headers: [
         {
-          text: "Name",
+          text: "Category",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "Category",
         },
-        { text: "Codenumber", value: "code" },
-        { text: "Quantity", value: "qty" },
+        { text: "PartNo", value: "PartNo" },
+        { text: "Value", value: "Value" },
+        { text: "quantity", value: "quantity" },
       ],
       footerProps: { "items-per-page-options": [11, 20, 25] },
       search: "",
+      skeleton: false,
     };
   },
   async mounted() {
-    await this.axios.get("http://localhost:3000/stock").then((response) => {
-      this.StocK1 = response.data;
-      console.log(response.data);
-    });
+    await this.axios
+      .post("https://adventurous-shorts-cow.cyclic.app/stock")
+      .then((response) => {
+        this.StocK1 = response.data;
+        this.skeleton = true;
+      });
   },
 };
 </script>

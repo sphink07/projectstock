@@ -1,15 +1,16 @@
 <template>
   <div>
-    <v-app style="background-color: rgb(80, 80, 80)">
-      <v-row no-gutters>
+    <v-app class="color" >
+      <v-row no-gutters >
         <v-col md="4" offset-md="4" sm="6" offset-sm="3">
           <v-container>
             <!-- <v-card class="mt-10 pb-2" rounded flat> -->
-            <v-container>
+              <v-card >
+                <v-container >
               <h1
-                style="text-align: center; font-size: 40px; color: #ffeb00"
+                style=" text-align: center; color:#5F9EA0 ;font-size: 55px; border: 15px solid #B0C4DE;"
                 class="ma-5"
-              >
+              > 
                 Login
               </h1>
               <v-text-field
@@ -36,13 +37,14 @@
               </v-text-field>
               <br />
               <br />
-              <v-btn dark block height="50px" class="btncolor" @click="Login()"
+              <v-btn dark block height="50px" width="10px" class="teal lighten-3" @click="Login()"
                 >Login to system</v-btn
               >
               <span>v 0.1</span>
             </v-container>
+            </v-card>
+            </v-container>
             <!-- </v-card> -->
-          </v-container>
         </v-col>
       </v-row>
     </v-app>
@@ -61,14 +63,14 @@ export default {
   }),
   methods: {
     async Login() {
-      if (this.UserName === "1" && this.PassWord === "1") {
-        this.ChackUser = "ADMIN1";
+      if (this.UserName === "superadmin" && this.PassWord === "superadmin") {
+        this.ChackUser = "Superadmin";
         localStorage.setItem("UserAdmin", this.ChackUser);
         alert("login sucess");
         await this.$router.push("/");
 
-      } else if (this.UserName === "2" && this.PassWord === "2") {
-        this.ChackUser = "ADMIN2";
+      } else if (this.UserName === "admin" && this.PassWord === "admin") {
+        this.ChackUser = "admin";
         localStorage.setItem("UserAdmin", this.ChackUser);
         alert("login sucess");
         await this.$router.push("/");
@@ -102,18 +104,19 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+  
 .btncolor {
   background: rgb(97, 0, 147);
   background: linear-gradient(
     90deg,
     rgba(97, 0, 147, 1) 0%,
     rgba(11, 11, 190, 1) 50%,
-    rgba(0, 212, 255, 1) 100%
+    rgb(83, 129, 205) 100%
   );
 }
-.backcolor {
-  background: rgb(47, 47, 47);
+.backcolor{
+  background: red;
   background: linear-gradient(
     180deg,
     rgba(47, 47, 47, 1) 0%,
@@ -121,4 +124,9 @@ export default {
     rgba(200, 197, 197, 1) 100%
   );
 }
+.color{
+  background-color: rgb(215, 214, 215);
+}
+
+
 </style>

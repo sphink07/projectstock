@@ -11,7 +11,7 @@
         <v-menu bottom min-width="150px" rounded offset-y dark>
           <template v-slot:activator="{ on }">
             <v-btn icon x-large v-on="on">
-              <v-avatar color="brown" size="40">
+              <v-avatar color="#626262" size="40">
                 <span class="white--text text-h6">{{ user.initials }}</span>
               </v-avatar>
             </v-btn>
@@ -19,13 +19,17 @@
           <v-card>
             <v-list-item-content style="justify-content: left">
               <div class="mx-auto text-center">
-                <v-avatar color="brown">
-                  <span class="white--text text-h5">{{ user.initials }}</span>
-                </v-avatar>
+              <v-avatar class="a1" v-if="this.user.fullName == 'Superadmin'" style="margin-bottom: 10px" size="60">
+                <span class="white--text text-h5" style="">{{ user.initials }}</span>
+              </v-avatar>
+              <v-avatar class="a2" v-if="this.user.fullName == 'admin'" style="margin-bottom: 10px" size="60">
+                <span class="white--text text-h5">{{ user.initials }}</span>
+              </v-avatar>
                 <p class="text-caption mt-1">
                   {{ user.email }}
                 </p>
-                <h3 style="margin-top: -12px">{{ user.fullName }}</h3>
+                <h3 style="margin-top:-15px ;" class="a1" v-if="this.user.fullName == 'Superadmin'">{{ user.fullName }}</h3>
+                <h3 style="margin-top:-15px ;" class="a2" v-if="this.user.fullName == 'admin'">{{ user.fullName }}</h3>
               </div>
             </v-list-item-content>
           </v-card>
@@ -43,17 +47,17 @@
               style="border-radius: 5px; background-color: #282828"
               elevation="10"
             >
-              <v-avatar class="a1" v-if="this.user.initials == 'A1'" style="margin-bottom: 10px" size="60">
+              <v-avatar class="a1" v-if="this.user.fullName == 'Superadmin'" style="margin-bottom: 10px" size="60">
                 <span class="white--text text-h5" style="">{{ user.initials }}</span>
               </v-avatar>
-              <v-avatar class="a2" v-if="this.user.initials == 'A2'" style="margin-bottom: 10px" size="60">
+              <v-avatar class="a2" v-if="this.user.fullName == 'admin'" style="margin-bottom: 10px" size="60">
                 <span class="white--text text-h5">{{ user.initials }}</span>
               </v-avatar>
               <p class="text-caption">
                 {{ user.email }}
               </p>
-              <h3 style="margin-top:-15px ;" class="a1" v-if="this.user.initials == 'A1'">{{ user.fullName }}</h3>
-              <h3 style="margin-top:-15px ;" class="a2" v-if="this.user.initials == 'A2'">{{ user.fullName }}</h3>
+              <h3 style="margin-top:-15px ;" class="a1" v-if="this.user.fullName == 'Superadmin'">{{ user.fullName }}</h3>
+              <h3 style="margin-top:-15px ;" class="a2" v-if="this.user.fullName == 'admin'">{{ user.fullName }}</h3>
             </v-card>
           </v-container>
         </div>
@@ -74,10 +78,10 @@ export default {
 
   mounted() {
     this.user.fullName = localStorage.getItem("UserAdmin")
-    if (this.user.fullName == 'ADMIN1'){
-      this.user.initials = "A1"
-    } else if(this.user.fullName == 'ADMIN2'){
-      this.user.initials = "A2"
+    if (this.user.fullName == 'Superadmin'){
+      this.user.initials = "SAM"
+    } else if(this.user.fullName == 'admin'){
+      this.user.initials = "AM"
     } else {
       console.log("avatar ไม่มีข้อมูล")
     }

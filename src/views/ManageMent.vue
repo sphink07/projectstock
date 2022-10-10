@@ -5,7 +5,7 @@
         <v-col cols="3" class="mt-6">
           <span
             style="font-size: 25px; color: #ffffff"
-            class="hidden-sm-and-down"
+            class="hidden-sm-and-down ml-2"
           >
             ✍ จัดการข้อมูล
           </span>
@@ -67,6 +67,30 @@
       </v-app-bar>
     </div>
     <!-- ---------------------------------------sm and down------------------------------------- -->
+    <div
+        v-if="this.skeleton == false"
+        style="position: absolute; top: 45%; left: 45%; right: 50%"
+        class="hidden-sm-and-down"
+      >
+        <v-progress-circular
+          :size="150"
+          :width="15"
+          color="#959595"
+          indeterminate
+        ></v-progress-circular>
+      </div>
+      <div
+        v-if="this.skeleton == false"
+        style="position: absolute; top: 40%; left: 40%;"
+        class="hidden-md-and-up"
+      >
+        <v-progress-circular
+          :size="150"
+          :width="15"
+          color="#959595"
+          indeterminate
+        ></v-progress-circular>
+      </div>
     <v-data-table
       height="74vh"
       :headers="headers"
@@ -88,6 +112,7 @@
             ลบ
           </v-btn>
           <v-btn
+            @click="GoToFix(item.id)"
             small
             class="ma-2"
             width="50"
@@ -142,6 +167,7 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
+      skeleton:false,
       StocK1: [],
       ID: "",
       number: 0,
@@ -150,28 +176,37 @@ export default {
       footerProps: { "items-per-page-options": [11, 20, 25] },
       headers: [
         {
-          text: "Name",
+          text: "Category",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "Category",
         },
-        { text: "Codenumber", value: "code" },
-        { text: "Quantity", value: "qty" },
+        { text: "PartNo", value: "PartNo" },
+        { text: "Value", value: "Value" },
+        { text: "quantity", value: "quantity" },
         { text: "", value: "action" },
       ],
+      user:"",
     };
   },
-
+  beforeMount() {
+    this.user = localStorage.getItem("UserAdmin")
+    if( this.user == "Superadmin"){
+      console.log('')
+    } else {
+      this.$router.push("/login")
+    }
+  },
   async mounted() {
-    await this.axios.get("http://localhost:3000/stock").then((response) => {
+    await this.axios.post("https://adventurous-shorts-cow.cyclic.app/stock").then((response) => {
       this.StocK1 = response.data;
-      console.log(response.data);
+      this.skeleton = true;
     });
   },
   methods: {
     async DeleteItem(codeid) {
       await this.axios
-        .delete(`http://localhost:3000/delete`, { data: { id: codeid } })
+        .delete("https://adventurous-shorts-cow.cyclic.app/delete", { data: { id: codeid } })
         .then((response) => {
           console.log(response);
         })
@@ -180,6 +215,7 @@ export default {
         });
     },
     AlertClick(list) {
+      console.log(list)
       this.number = list;
       let codeid = this.number;
       Swal.fire({
@@ -208,6 +244,10 @@ export default {
     },
     GoToInsert() {
       this.$router.push("/management/add");
+    },
+    GoToFix(id) {
+      localStorage.setItem("idfix" , id)
+      this.$router.push("/management/fix");
     },
   },
 };

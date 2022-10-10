@@ -122,6 +122,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -134,13 +135,14 @@ export default {
       footerProps: { "items-per-page-options": [11, 20, 25] },
       headers: [
         {
-          text: "Name",
+          text: "Category",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "Category",
         },
-        { text: "Codenumber", value: "code" },
-        { text: "Quantity", value: "qty" },
+        { text: "PartNo", value: "PartNo" },
+        { text: "Value", value: "Value" },
+        { text: "quantity", value: "quantity" },
       ],
     };
   },
@@ -160,23 +162,27 @@ export default {
     ChackZero() {
       for (let i = 0; i < this.dataselect.length; i++) {
         if (this.dataselect[i].qty <= 0) {
-          this.booleen = false;
+          this.booleen = false
+          break;
         } else {
           this.booleen = true;
         }
       }
-      if (this.dataselect.length == 0) {
-        this.booleen = true;
-      }
       if (this.booleen === true) {
         this.$router.push("/select/list");
       } else {
-        alert("รายการที่เลือกมีรายการที่สินค้าที่หมด ไม่สามารถดำเนินการต่อได้");
+        Swal.fire({
+            title: "ผิดพลาด!!",
+            text: "มีรายการที่มีสินค้าหมด ไม่สามารถดำเนินการต่อไปได้",
+            icon: "warning",
+            showConfirmButton: false,
+            timer: 2000,
+          })
       }
     },
   },
   async mounted() {
-    await this.axios.post("http://192.168.8.129:3000/stock").then((response) => {
+    await this.axios.post("https://adventurous-shorts-cow.cyclic.app/stock").then((response) => {
       this.datafilter = response.data;
     });
   },
