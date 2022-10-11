@@ -20,12 +20,48 @@
         </v-col>
       </v-row>
     </v-card>
+    <div
+    v-if="this.skeleton == false"
+    style="position: absolute; top: 45%; left: 50%; right: 50%"
+    class="hidden-sm-and-down"
+  >
+    <v-progress-circular
+      :size="150"
+      :width="15"
+      color="#959595"
+      indeterminate
+    ></v-progress-circular>
+  </div>
+  <div
+    v-if="this.skeleton == false"
+    style="position: absolute; top: 40%; left: 38%;"
+    class="hidden-md-and-up"
+  >
+    <v-progress-circular
+      :size="150"
+      :width="15"
+      color="#959595"
+      indeterminate
+    ></v-progress-circular>
+  </div>
+    <v-card v-if="this.skeleton == true" style="height: 85vh">
+      <v-data-table
+        height="74vh"
+        flat
+        :headers="headers"
+        :items="Datalist"
+        :search="search"
+        :footer-props="footerProps"
+      ></v-data-table>
+    </v-card>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      skeleton:false,
+      Datalist:[],
       search:"",
       headers: [
         {
@@ -37,9 +73,17 @@ export default {
         { text: "PartNo", value: "PartNo" },
         { text: "Value", value: "Value" },
         { text: "quantity", value: "quantity" },
-        { text: "User", value: "user" },    
+        { text: "User", value: "user" },
+        { text: "date", value: "time" },     
       ],
+      footerProps: { "items-per-page-options": [11, 20, 25] },
     }
+  },
+  async mounted() {
+    await this.axios.post("https://firstmyapi.onrender.com/stockuser").then((response) =>{
+      this.Datalist = response.data;
+      this.skeleton = true
+    })
   },
 };
 </script>

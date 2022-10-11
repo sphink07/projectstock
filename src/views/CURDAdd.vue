@@ -62,7 +62,7 @@ export default {
       let Value = this.Value;
       let quantity = this.quantity;
       await this.axios
-        .post("https://adventurous-shorts-cow.cyclic.app/insert", { Category, PartNo, Value, quantity})
+        .post("https://firstmyapi.onrender.com/insert", { Category, PartNo, Value, quantity})
         .then((response) => {
           console.log(response);
           this.alert = true;

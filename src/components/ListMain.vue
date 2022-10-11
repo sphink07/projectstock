@@ -95,7 +95,7 @@ export default {
   },
   async mounted() {
     await this.axios
-      .post("https://adventurous-shorts-cow.cyclic.app/stock")
+      .post("https://firstmyapi.onrender.com/stock")
       .then((response) => {
         this.StocK1 = response.data;
         this.skeleton = true;

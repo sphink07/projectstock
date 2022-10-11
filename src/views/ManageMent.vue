@@ -67,9 +67,9 @@
       </v-app-bar>
     </div>
     <!-- ---------------------------------------sm and down------------------------------------- -->
-    <div
+      <div
         v-if="this.skeleton == false"
-        style="position: absolute; top: 45%; left: 45%; right: 50%"
+        style="position: absolute; top: 45%; left: 50%; right: 50%"
         class="hidden-sm-and-down"
       >
         <v-progress-circular
@@ -92,6 +92,7 @@
         ></v-progress-circular>
       </div>
     <v-data-table
+      v-if="this.skeleton == true"
       height="74vh"
       :headers="headers"
       :items="StocK1"
@@ -198,7 +199,7 @@ export default {
     }
   },
   async mounted() {
-    await this.axios.post("https://adventurous-shorts-cow.cyclic.app/stock").then((response) => {
+    await this.axios.post("https://firstmyapi.onrender.com/stock").then((response) => {
       this.StocK1 = response.data;
       this.skeleton = true;
     });
@@ -206,7 +207,7 @@ export default {
   methods: {
     async DeleteItem(codeid) {
       await this.axios
-        .delete("https://adventurous-shorts-cow.cyclic.app/delete", { data: { id: codeid } })
+        .delete("https://firstmyapi.onrender.com/delete", { data: { id: codeid } })
         .then((response) => {
           console.log(response);
         })
@@ -229,6 +230,7 @@ export default {
         cancelButtonText: "ยกเลิก",
       }).then((result) => {
         if (result.isConfirmed) {
+          this.DeleteItem(codeid);
           Swal.fire({
             title: "ลบสำเร็จ!",
             text: "ข้อมูลใน stock ถูกลบแล้ว",
@@ -236,7 +238,6 @@ export default {
             showConfirmButton: false,
             timer: 1200,
           }).then(() => {
-            this.DeleteItem(codeid);
             window.location.reload();
           });
         }

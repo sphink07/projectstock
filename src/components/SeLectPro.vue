@@ -5,7 +5,7 @@
         <v-col>
           <v-app-bar
             scroll-target="#scrolling-techniques-7"
-            style="height:14vh;"
+            style="height: 14vh"
             class="hidden-sm-and-down col00"
           >
             <v-row no-gutters>
@@ -86,9 +86,9 @@
                   block
                   elevation="10"
                   style="
-                    margin-top: -15px;
-                    background-color: #505050;
-                    color: #ffffff;
+                  margin-top: -15px;
+                  background-color: #505050;
+                  color: #ffffff;
                   "
                   width="120"
                 >
@@ -102,7 +102,31 @@
               </v-col>
             </v-row>
           </v-app-bar>
-          <v-card height="75vh">
+          <div
+            v-if="this.skeleton == false"
+            style="position: absolute; top: 45%; left: 45%; right: 50%"
+            class="hidden-sm-and-down"
+          >
+            <v-progress-circular
+              :size="150"
+              :width="15"
+              color="#959595"
+              indeterminate
+            ></v-progress-circular>
+          </div>
+          <div
+            v-if="this.skeleton == false"
+            style="position: absolute; top: 40%; left: 40%"
+            class="hidden-md-and-up"
+          >
+            <v-progress-circular
+              :size="150"
+              :width="15"
+              color="#959595"
+              indeterminate
+            ></v-progress-circular>
+          </div>
+          <v-card height="75vh" v-if="this.skeleton == true">
             <v-data-table
               height="72vh"
               flat
@@ -126,6 +150,7 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
+      skeleton:false,
       booleen: true,
       Length: 0,
       datafilter: [],
@@ -162,7 +187,7 @@ export default {
     ChackZero() {
       for (let i = 0; i < this.dataselect.length; i++) {
         if (this.dataselect[i].qty <= 0) {
-          this.booleen = false
+          this.booleen = false;
           break;
         } else {
           this.booleen = true;
@@ -172,19 +197,23 @@ export default {
         this.$router.push("/select/list");
       } else {
         Swal.fire({
-            title: "ผิดพลาด!!",
-            text: "มีรายการที่มีสินค้าหมด ไม่สามารถดำเนินการต่อไปได้",
-            icon: "warning",
-            showConfirmButton: false,
-            timer: 2000,
-          })
+          title: "ผิดพลาด!!",
+          text: "มีรายการที่มีสินค้าหมด ไม่สามารถดำเนินการต่อไปได้",
+          icon: "warning",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     },
   },
   async mounted() {
-    await this.axios.post("https://adventurous-shorts-cow.cyclic.app/stock").then((response) => {
-      this.datafilter = response.data;
-    });
+    await this.axios
+      .post("https://firstmyapi.onrender.com/stock")
+      .then((response) => {
+        this.datafilter = response.data;
+        this.skeleton = true
+        
+      });
   },
   updated() {
     this.Length = this.dataselect.length;

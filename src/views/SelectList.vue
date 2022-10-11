@@ -10,7 +10,7 @@
             offset-sm="1"
             style="text-align: center"
           >
-            <v-card height="600" elevation="5">
+            <v-card height="700" elevation="5">
               <v-data-table
                 height="85vh"
                 flat
@@ -110,7 +110,6 @@ export default {
   mounted() {
     let JsonData = JSON.parse(localStorage.getItem("Iteminlist"));
     this.ListShow = JsonData;
-    // console.log(this.ListShow);
   },
   methods: {
     TestSlot() {
@@ -119,8 +118,8 @@ export default {
       });
       if (this.textinputfix.length == this.ListShow.length) {
         for (let i = 0; i < this.textinputfix.length; i++) {
-          if (this.ListShow[i].qty >= this.textinputfix[i]) {
-            this.Mixlist[i] = this.ListShow[i].qty - this.textinputfix[i];
+          if (this.ListShow[i].quantity >= this.textinputfix[i]) {
+            this.Mixlist[i] = this.ListShow[i].quantity - this.textinputfix[i];
           } else {
             Swal.fire({
               text: "มีรายการสินค้าที่ไม่เพียงพอ ตรวจสอบจำนวนที่จะเบิก",
@@ -151,25 +150,36 @@ export default {
               });
               for (let i = 0; i < this.textinputfix.length; i++) {
                 let id = this.ListShow[i].id;
-                let qty = this.Mixlist[i];
+                let quantity = this.Mixlist[i];
                 this.axios
-                  .post("http://192.168.8.129:3000/updateqty", { id, qty })
-                  .then((response) => {
-                    console.log(response);
-                    Swal.fire({
+                  .post("https://firstmyapi.onrender.com/updateqty", { id , quantity })
+                  .then(() => {
+                    let Category = this.ListShow[i].Category;
+                    let PartNo = this.ListShow[i].PartNo;
+                    let Value = this.ListShow[i].Value;
+                    let quantity = this.textinputfix[i];
+                    let user = localStorage.getItem("UserAdmin")
+                    this.axios.post("https://firstmyapi.onrender.com/insertuser" , 
+                    {Category , PartNo , Value , quantity , user}).catch(function (error) {
+                    document.write(
+                      "ส่งข้อมูลไปเพิ่มตาราง user ไม่สำเร็จ" + "<br>" + "สาเหตุ :" + error
+                        );
+                      });
+                    }).catch(function (error) {
+                    document.write(
+                      "ส่งข้อมูลไม่สำเร็จ" + "<br>" + "สาเหตุ :" + error
+                      );
+                    });
+              }
+              Swal.fire({
                       title: "บันทึกสำเร็จ",
                       icon: "success",
                       timer: 2000,
                       showConfirmButton: false,
+                    }).then(() => {
+                      this.$router.push("/")
                     });
-                    this.$router.push("/select");
-                  })
-                  .catch(function (error) {
-                    document.write(
-                      "ส่งข้อมูลไม่สำเร็จ" + "<br>" + "สาเหตุ :" + error
-                    );
-                  });
-              }
+                    
             } else {
               this.Mixlist = [];
               console.log(this.Mixlist);
@@ -182,6 +192,7 @@ export default {
             showConfirmButton: false,
             timer: 2000,
           });
+          console.log(this.Mixlist)
         }
       } else {
         Swal.fire({
@@ -200,7 +211,6 @@ export default {
         });
         this.$router.push("/select");
       }
-      console.log(this.ListShow);
     },
     backpage() {
       this.$router.push("/select");

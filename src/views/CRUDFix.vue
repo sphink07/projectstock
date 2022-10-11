@@ -100,7 +100,7 @@ export default {
   mounted() {
     this.id = localStorage.getItem("idfix");
     this.axios
-      .get(`https://adventurous-shorts-cow.cyclic.app/select/${this.id}`)
+      .get(`https://firstmyapi.onrender.com/select/${this.id}`)
       .then((response) => {
         this.Category = response.data.data.Category;
         this.PartNo = response.data.data.PartNo;
@@ -137,7 +137,7 @@ export default {
             let Value = this.Value;
             let quantity = this.quantity;
             this.axios.post(
-              `https://adventurous-shorts-cow.cyclic.app/update`,
+              `https://firstmyapi.onrender.com/update`,
               {
                 id,
                 Category,
