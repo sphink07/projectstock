@@ -45,21 +45,24 @@
     ></v-progress-circular>
   </div>
     <v-card v-if="this.skeleton == true" style="height: 85vh">
-      <v-data-table
+      <v-data-table 
         height="74vh"
         flat
         :headers="headers"
         :items="Datalist"
         :search="search"
         :footer-props="footerProps"
-      ></v-data-table>
+      >
+    </v-data-table>
     </v-card>
   </div>
 </template>
-<script>
+
+<script >
 export default {
   data() {
     return {
+      fixtime:[],
       skeleton:false,
       Datalist:[],
       search:"",
@@ -83,7 +86,16 @@ export default {
     await this.axios.post("https://firstmyapi.onrender.com/stockuser").then((response) =>{
       this.Datalist = response.data;
       this.skeleton = true
+      this.formetdate()
     })
+  },
+  methods: {
+    formetdate(){
+      for(let i = 0 ; i < this.Datalist.length ; i++){
+      let date = new Date(`${this.Datalist[i].time}`); 
+      this.Datalist[i].time = "date :" + date.toLocaleDateString() + " " + "time :" + date.toLocaleTimeString()
+      }
+    }
   },
 };
 </script>
