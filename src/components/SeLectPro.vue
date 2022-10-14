@@ -235,7 +235,4 @@ export default {
     rgba(173, 173, 173, 1) 100%
   );
 }
-::v-deep .v-data-table-header {
-  background-color: #dcdcdc;
-}
 </style>
