@@ -249,7 +249,7 @@ export default {
           this.Btn2 = true;
           this.Btn3 = false;
           this.Btn4 = true;
-          this.Btn5 = false;
+          this.Btn5 = true;
           console.log(this.Btn5);
 
           break;
@@ -298,7 +298,7 @@ export default {
       this.Btn2 = true;
       this.Btn3 = false;
       this.Btn4 = true;
-      this.Btn5 = false;
+      this.Btn5 = true;
       console.log(this.Btn5);
     }
      this.user = localStorage.getItem("UserAdmin")
