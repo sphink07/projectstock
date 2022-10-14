@@ -113,7 +113,7 @@
                 elevation="5"
                 block
                 style="background-color: #282828; border-right-color: #54f3ff"
-                v-bind:class="{ OutLineDisAble: Btn5 }"
+                v-bind:class="{ OutLineDisAble: Btn3 }"
                 class="mb-5 hidden-sm-and-down OutLineAble"
                 height="45"
                 outlined
@@ -221,7 +221,6 @@ export default {
       Btn2: true,
       Btn3: true,
       Btn4: true,
-      Btn5: true,
       user:"",
     };
   },
@@ -233,7 +232,6 @@ export default {
           this.Btn2 = true;
           this.Btn3 = true;
           this.Btn4 = true;
-          this.Btn5 = true;
 
           break;
         case "SeLect":
@@ -241,7 +239,6 @@ export default {
           this.Btn2 = false;
           this.Btn3 = true;
           this.Btn4 = true;
-          this.Btn5 = true;
 
           break;
         case "ReCordy":
@@ -249,8 +246,6 @@ export default {
           this.Btn2 = true;
           this.Btn3 = false;
           this.Btn4 = true;
-          this.Btn5 = true;
-          console.log(this.Btn5);
 
           break;
         case "ManageMent":
@@ -258,7 +253,6 @@ export default {
           this.Btn2 = true;
           this.Btn3 = true;
           this.Btn4 = false;
-          this.Btn5 = true;
 
           break;
       }
@@ -272,7 +266,6 @@ export default {
         this.Btn2 = true;
         this.Btn3 = true;
         this.Btn4 = true;
-        this.Btn5 = true;
 
         break;
       case "SeLect":
@@ -280,8 +273,6 @@ export default {
         this.Btn2 = false;
         this.Btn3 = true;
         this.Btn4 = true;
-        this.Btn5 = true;
-        console.log(this.Btn2);
 
         break;
       case "ManageMent":
@@ -289,7 +280,6 @@ export default {
         this.Btn2 = true;
         this.Btn3 = true;
         this.Btn4 = false;
-        this.Btn5 = true;
 
         break;
     }
@@ -298,8 +288,6 @@ export default {
       this.Btn2 = true;
       this.Btn3 = false;
       this.Btn4 = true;
-      this.Btn5 = true;
-      console.log(this.Btn5);
     }
      this.user = localStorage.getItem("UserAdmin")
     console.log(this.$route.name);
